@@ -87,7 +87,7 @@ fireworks: false
 
 # Analysis
 # ---------------
-baidu_analytics:
+baidu_analytics: a81de194023de1f698dbc274732279cf
 
 google_analytics:  UA-115496937-1
 
