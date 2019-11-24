@@ -255,10 +255,10 @@ busuanzi:
 
 # Sidebar Settings
 # ---------------
-#links_title: Links
+links_title: 朋友-Links
 links:
-  Spaceack: http://spaceack.com
-
+  Spaceack: http://spaceack.com 
+  TRHX’S BLOG: https://www.itrhx.com/
 # Follow Me Button
 follow:
   enable: true
