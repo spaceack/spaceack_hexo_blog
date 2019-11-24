@@ -3,7 +3,7 @@ title: 诗词三首
 date: 2017-06-18 23:50:31
 categories: 生活
 tags: 
-  -poem
+  - poem
   - memory
 ---
 
