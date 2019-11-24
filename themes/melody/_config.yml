@@ -92,7 +92,7 @@ baidu_analytics:
 google_analytics:  UA-115496937-1
 
 # Tencent_analytics ID
-tencent_analytics:
+tencent_analytics: 66492401
 
 # stylesheets loaded in the <head>
 # ---------------
