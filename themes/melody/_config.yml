@@ -209,7 +209,7 @@ gitalk:
    enable: true
    client_id: 72a672ddfc6e3a4fecca
    client_secret: 3d9d7e44e8177b0b25c584f878bf463b842cf240
-   repo: https://github.com/spaceack/spaceack.github.io
+   repo: spaceack.github.io
    owner: spaceack
    admin: spaceack
 
