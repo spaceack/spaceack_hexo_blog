@@ -1,10 +1,10 @@
 ---
 title: 《挑战程序设计(第二版)》（第二章）POJ No.2386
 date: 2017-08-19 11:53:23
-categories: Python
+categories: 算法
 tags: 
   - 《挑战程序设计(第二版)》
-  -  算法
+  -  python
 ---
 
 ### POJ 2386
