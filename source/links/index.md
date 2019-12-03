@@ -16,7 +16,7 @@ date: 2019-11-28 00:19:01
 |[迷思语](https://www.misiyu.cn/)|技术大牛|一个人，一介学生，一个儿子~ 愿你我都被世界温暖以待|
 |[アストルフォの幻想郷](https://asutorufa.github.io/)|编程||
 |[Raoul’s Pub](https://raoul1996.github.io/ )|||
-
+|[谓之小一](https://weizhixiaoyi.com/)|机器学习，深度学习|永远相信-美好的事情即将发生|
 
 
 ## 网址导航
