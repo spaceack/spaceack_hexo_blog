@@ -274,7 +274,7 @@ follow:
 # ---------------
 # Google Adsense
 google_adsense:
-  enable: false
+  enable: true
   js: //pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
-  client: ca-pub-...........
+  client: ca-pub-2705887888063747
   enable_page_level_ads: true
