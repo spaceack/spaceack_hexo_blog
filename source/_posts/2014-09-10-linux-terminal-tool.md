@@ -40,11 +40,14 @@ lshw
 ```
 
 
-## 传输篇
+## 传输篇 scp
 ```bash
 # 使用scp 传输文件 将本地文件data.zip 传到服务器 /data 目录 -
 # P ssh端口号
 scp -P 22 /data/data.zip root@spaceack.com:/data
+
+# 使用scp 传输文件 将远程目录 remote_path 传到本地当前目录
+scp   remote_username@remote_ip:/remote_path/*  .
 ```
 ## 其它
 ```bash
@@ -54,10 +57,9 @@ w | grep pts |wc -l
 # 文件批量重命名
 apt install rename 
 ```
-### 选择时区
+### 选择时区 tzselect
 ```bash
 tzselect
-
 # 查看时间
 date
 ```
