@@ -54,3 +54,10 @@ w | grep pts |wc -l
 # 文件批量重命名
 apt install rename 
 ```
+### 选择时区
+```bash
+tzselect
+
+# 查看时间
+date
+```
