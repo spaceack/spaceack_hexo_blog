@@ -35,6 +35,7 @@ date: 2019-11-28 00:19:01
 |[transifex](http://transifex.com)|国际化汉化写作网站|
 |[pexels](https://www.pexels.com/)|免费图片素材|
 |[pixabay](https://pixabay.com/)|免费图片素材|
+|[The Architecture of Open Source Applications](http://aosabook.org/en/index.html)|程序技术，架构～～|
 
 
 ## 添加本站为友链
@@ -42,9 +43,9 @@ date: 2019-11-28 00:19:01
 # 名称
 丸子家的小丸子
 # 主页 
-http://spaceack.com/
+http://spaceack.github.io/
 # markdown 链接
-[丸子家的小云吞](http://spaceack.com/)
+[丸子家的小云吞](http://spaceack.github.io/)
 # 标签
 Python, Linux
 # 简介
