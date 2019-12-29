@@ -1,5 +1,5 @@
 ---
-title: ERROR [root] Error: Can't locate revision identified by '' Solution 
+title: Can't locate revision identified by '' Solution 
 date: 2019-12-27 12:00:00
 categories: ErrorSolution
 tags: 
@@ -22,3 +22,4 @@ alembic_version 版本号与 迁移号不一致，需要清除旧数据。
 ```sql
 truncate table alembic_version;
 ```
+
