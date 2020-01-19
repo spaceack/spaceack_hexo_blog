@@ -229,15 +229,15 @@ gentie:
   # 注册后，进入后台管理，获取代码：复制其中的productKey到product_key中。
   # 网易云跟帖暂时不支持查询评论数，所以启用时，把评论数关掉，上方comment_count: false。
 
-gitalk:
-  githubID: spaceack
-  repo: spaceack.github.io
-  ClientID: 72a672ddfc6e3a4fecca
-  ClientSecret: 3d9d7e44e8177b0b25c584f878bf463b842cf240
-  adminUser: spaceack
-  distractionFreeMode: true
-  language: zh-CN
-  perPage: 10
+# gitalk:
+#   githubID: spaceack
+#   repo: spaceack.github.io
+#   ClientID: 72a672ddfc6e3a4fecca
+#   ClientSecret: 3d9d7e44e8177b0b25c584f878bf463b842cf240
+#   adminUser: spaceack
+#   distractionFreeMode: true
+#   language: zh-CN
+#   perPage: 10
 # gitalk：利用github issue制作的第三方聊天插件
 # https://github.com/gitalk/gitalk
 # 参数介绍：
