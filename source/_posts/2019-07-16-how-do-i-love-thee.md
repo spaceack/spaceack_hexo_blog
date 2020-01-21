@@ -6,6 +6,7 @@ author: 小丸子
 categories: 生活
 tags:
  - poem
+ - LOVE
  - 情感
  - 为你读诗
 ---
@@ -28,4 +29,6 @@ tags:
 
 如果可以，即使死亡带来分离，我的爱永不言弃。
 
-{% aplayer "我如何爱你" "小丸子" "http://qiniu.aimiter.com/我如何爱你.m4a" "autoplay"  %}
+{% aplayer "我如何爱你" "小丸子" "我如何爱你.m4a" "autoplay"  %}
+
+<!-- {% aplayer "我如何爱你" "小丸子" "http://qiniu.aimiter.com/我如何爱你.m4a" "autoplay"  %} -->

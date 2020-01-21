@@ -17,9 +17,9 @@ LANGUAGE_CODE = 'zh-Hans'
 TIME_ZONE = 'Asia/Shanghai'
 ```
 
-![更改前]()
+![更改前](更新前.png)
 
-![更改后]()
+![更改后](更新后.png)
 
 
 

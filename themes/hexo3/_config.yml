@@ -61,7 +61,7 @@ menu:
     on: true # 是否展示
   menus: # 添加的其他菜单写在 menus 下，如下三个菜单：动态菜单1、动态菜单2、动态菜单3
     相册:
-      on: true
+      on: false
       url: /photo
       type: 1  # 跳转类型 1：站内异步跳转
     叶落阁:
@@ -124,7 +124,7 @@ article_list:
 
 # 文章列表背景图
 article_bg_img:
-  on: true # 是否开启
+  on: false # 是否开启
   src: https://i.loli.net/2019/07/22/5d3521411f3f169375.png
   opacity: 0.3 # 背景图透明度，范围 0 ～ 1
 
@@ -165,7 +165,7 @@ code:
 highlight:
   on: true # true开启代码高亮
   lineNum: true # true显示行号
-  theme: sublime
+  theme: atom-dark
 # 代码高亮主题,效果可以查看 https://highlightjs.org/static/demo/
 # 支持主题：
 # sublime : 参考sublime的高亮主题
@@ -187,7 +187,7 @@ highlight:
 
 # MathJax 数学公式支持
 mathjax:
-  on: true #是否启用
+  on: false #是否启用
   per_page: false # 若只渲染单个页面，此选项设为false，页面内加入 mathjax: true
 
 # Mermaid 支持
