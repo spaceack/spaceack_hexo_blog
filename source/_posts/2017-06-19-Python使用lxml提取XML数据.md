@@ -2,6 +2,8 @@
 title: 使用lxml提取HTML/XML 数据
 date: 2017-06-19 12:00:00
 categories: Python
+update: 2020-02-14 23:00:00
+author: 小云吞
 tags: 
   - python
   - snippet
@@ -10,6 +12,14 @@ tags:
 ---
 
 # demo
+
+```python
+#更新： 新版本引入etree模块方式
+
+from lxml import html
+etree = html.etree
+tree = etree.HTML("")
+```
 
 ```python
 html = '''

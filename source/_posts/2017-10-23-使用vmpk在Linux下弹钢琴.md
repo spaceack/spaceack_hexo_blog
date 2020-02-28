@@ -1,6 +1,8 @@
 ---
 title: 玩转midi:使用vmpk在Gnu/Linux下弹钢琴
 date: 2017-10-23 12:00:00
+update: 2017-10-23 12:00:00
+author: 小云吞
 categories: Linux
 tags: 
   - Linux
