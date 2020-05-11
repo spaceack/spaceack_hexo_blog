@@ -7,6 +7,7 @@ categories: 数据处理
 tags: 
   - PDI
   - kettle
+  - 数据处理
 ---
 ### 1.建立Mysql连接
 ![image.png](1-0.png)
