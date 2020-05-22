@@ -52,7 +52,7 @@ password=123               ; (default is no password (open server))
 - 启动/停止/重启某程序 ```supervisorctl {start:stop:restart} program_name```
 - 查看所有子进程的状态```supervisorctl```
 ### 子进程状态
-![Subprocess State Transition Graph](/images/supervisor-notebook/supervisor-subprocess-transitions.png)
+![supervisor-subprocess-transitions.png](supervisor-subprocess-transitions.png)
 七种状态
 
 - STOPPED
