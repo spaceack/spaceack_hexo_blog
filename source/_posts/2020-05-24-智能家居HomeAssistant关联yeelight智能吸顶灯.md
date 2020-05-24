@@ -12,8 +12,10 @@ tags:
 
 ## 缘起
 作为一名生命不止，折腾不息的小geek, 对享有智能生活， 掌握智能数据早已觊觎已久。奈何时间，空间，设备的限制一直未能如愿。
-恰巧手头有一套`yeelight`智能吸顶灯，来发挥一直关注`HomeAssistant`项目的威力！
-今天就将智能家具这个小兴趣来作为忙碌工作生活中的调剂吧。
+
+恰巧手头有一套`yeelight`智能吸顶灯，来发挥一直关注的`HomeAssistant`项目的威力！
+
+今天就将智能家居这个小兴趣来作为忙碌工作生活中的调剂吧。
 
 ### HomeAssistant是什么
 
@@ -33,7 +35,10 @@ hass --open-ui
 ```
 #### 注册基本信息
 ![onboarding1.png](onboarding1.png)
+
 ![onboarding2.png](onboarding2.png)
+
+![lovelace1.png](lovelace1.png)
 
 ### 集成yeelight智能吸顶灯
 [yeelight集成文档](https://www.home-assistant.io/integrations/yeelight)
