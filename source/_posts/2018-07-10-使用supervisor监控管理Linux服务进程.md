@@ -16,6 +16,8 @@ tags:
 easy_install supervisor
 or 
 pip3 install supervisor
+or
+sudo apt install supervisor
 ### 配置
 执行命令```echo_supervisord_conf```回显默认的初始配置文件。
 可通过管道命令将配置文件重定向到某个目录，eg:```echo_supervisord_conf > /etc/supervisord.conf```
