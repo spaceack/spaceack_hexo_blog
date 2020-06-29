@@ -18,7 +18,8 @@ update: 2019-11-17 23:59:59
 - 数据分析初学者
 - 大数据相关: [Hadoop](http://hadoop.apache.org/) MapReduce 计算模型， [Hive](https://hive.apache.org/)，HDFS
 - 网络安全相关: [Wireshark](https://www.wireshark.org/)数据抓包与分析，数据隐写 etc.
-- 微信小程序开发 生命数计算器: ![生命数计算器](wx-lifenum.jpeg){:height="100px" width="100px"}
+- 微信小程序开发 生命数计算器: 
+![生命数计算器](wx-lifenum.jpeg)
 - 其它工具: Pycharm, Sublime, Markdown/Moeditor, Git, Nmap, Vim, Postman, Fiddler, FreeMind/Xmind  Remarkjs/pydown etc.
  - CAD: SweetHome3D
 
