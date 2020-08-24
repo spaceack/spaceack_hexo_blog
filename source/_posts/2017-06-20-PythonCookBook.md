@@ -1,6 +1,6 @@
 Title: Python常用功能模块速查
 Date: 2017-06-19 08:57:27
-Modified: 2020-08-20 21:47:12
+Modified: 2020-08-24 21:47:12
 Category: Python
 Tags: Cookbook
 Slug: python-modules-cookbook
@@ -14,6 +14,8 @@ categories: Python
 update: 2020-08-20 23:00:00
 author: 小云吞
 tags: 
+  - platform
+  - lsb_release
   - python
   - passlib
   - selenium
@@ -22,6 +24,44 @@ tags:
   - xpath
   - HMAC
 ---
+#### platform
+```python
+import platform
+
+# 获取操作系统的位数
+print('architecture: ', platform.architecture()) # architecture:  ('64bit', 'ELF')
+# 计算机类型/CPU架构
+print('machine: ', platform.machine()) # machine:  x86_64
+print('system:', platform.system()) # Linux
+# 获取Linux内核版本
+print('platform: ', platform.platform()) # Linux-5.4.0-42-generic-x86_64-with-glibc2.29
+print('version: ', platform.version()) # #46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020
+# 计算机的网络名称
+print('node: ', platform.node()) # idea570
+# 计算机处理器信息
+print('processor', platform.processor()) # processor x86_64
+print('uname: ', platform.uname()) # uname_result(system='Linux', node='idea570', release='5.4.0-42-generic', version='#46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020', machine='x86_64', processor='x86_64')
+
+print(platform.python_build()) # ('default', 'Jul 16 2020 14:00:26')
+print(platform.python_compiler()) # GCC 9.3.0
+print(platform.python_branch())
+# python 解释器实现
+print(platform.python_implementation()) # CPython
+print(platform.python_revision())
+print(platform.python_version_tuple()) # ('3', '8', '2')
+```
+
+#### lsb_release
+```python
+import lsb_release
+lsb_info = lsb_release.get_distro_information()
+print(lsb_info) # {'ID': 'Ubuntu', 'DESCRIPTION': 'Ubuntu 20.04.1 LTS', 'RELEASE': '20.04', 'CODENAME': 'focal'}
+print('ID: ', lsb_info.get('ID')) # ID:  Ubuntu
+print('RELEASE: ', lsb_info.get('RELEASE')) # RELEASE:  20.04
+print('DESCRIPTION: ', lsb_info.get('DESCRIPTION')) # DESCRIPTION: 'Ubuntu 20.04.1 LTS
+print('CODENAME: ', lsb_info.get('CODENAME')) # CODENAME:  focal
+```
+
 #### 密码哈希
   ``` python
   from passlib.apps import custom_app_context as pwd_context
