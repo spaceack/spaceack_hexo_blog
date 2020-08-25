@@ -31,7 +31,7 @@ import platform
 # 获取操作系统的位数
 print('architecture: ', platform.architecture()) # architecture:  ('64bit', 'ELF')
 # 计算机类型/CPU架构
-print('machine: ', platform.machine()) # machine:  x86_64
+print('machine: ', platform.machine()) # machine:  x86_64 aarch64
 print('system:', platform.system()) # Linux
 # 获取Linux内核版本
 print('platform: ', platform.platform()) # Linux-5.4.0-42-generic-x86_64-with-glibc2.29
