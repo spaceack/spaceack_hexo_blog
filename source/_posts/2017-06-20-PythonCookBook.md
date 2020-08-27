@@ -1,12 +1,3 @@
-Title: Python常用功能模块速查
-Date: 2017-06-19 08:57:27
-Modified: 2020-08-24 21:47:12
-Category: Python
-Tags: Cookbook
-Slug: python-modules-cookbook
-Authors: Spaceack
-Summary: 编码转换, RE, Stmp, HMAC etc
-
 ---
 title: Python CookBook
 date: 2017-06-20 08:57:27
