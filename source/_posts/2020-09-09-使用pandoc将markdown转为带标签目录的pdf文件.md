@@ -1,5 +1,5 @@
 ---
-title: markdown转pdf使用pandoc
+title: 使用pandoc将markdown转为带标签目录的pdf文件
 author: 小云吞
 date: 2020-09-09 21:00:00
 update: 2020-09-09 21:00:00
