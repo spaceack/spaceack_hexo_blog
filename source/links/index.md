@@ -30,7 +30,12 @@ date: 2019-11-28 00:19:01
 |[CSDN](https://www.csdn.net/)|IT技术社区|
 |[cnBeta](https://www.cnbeta.com/)|互联网,科技资讯|
 |[科创论坛](https://www.kechuang.org/)|Geek学术社区|
+|[阿里天池](https://tianchi.aliyun.com/)|算法，编程比赛|
 |[洛谷](https://www.luogu.com.cn/)|NOIP题库，比赛|
+|[力扣](https://leetcode-cn.com/)|leetcode中国|
+|[计蒜客](https://www.jisuanke.com/)|ACM， 信息学编程比赛|
+|[蓝桥/实验楼](https://www.lanqiao.cn/)|技术实战，比赛|
+|[百度之星](https://star.baidu.com/)|编程比赛|
 |[开源工厂](https://openingsource.org/)|资讯，资源|
 |[transifex](http://transifex.com)|国际化汉化写作网站|
 |[pexels](https://www.pexels.com/)|免费图片素材|
