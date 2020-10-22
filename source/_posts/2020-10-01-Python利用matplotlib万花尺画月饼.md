@@ -1,5 +1,5 @@
 ---
-title: Python利用matplotlib万花尺画月饼，云上过中秋
+title: Python利用matplotlib万花尺画月饼
 author: 小云吞
 date: 2020-10-01 21:00:00
 update: 2020-10-01 21:00:00
