@@ -248,3 +248,18 @@ def SMTP_SSL():
 if __name__ == '__main__':
     print(SMTP_SSL())
 ```
+
+#### 通过网卡名获取ip地址
+
+```python
+# 方法1： 使用 netifaces 库
+# pip3 install netifaces
+ip_address = ifaddresses(netcard_name)[AF_INET][0]['addr']
+
+# 方法2：
+my_addr = os.popen(
+    "ifconfig | grep -A 1 %s|tail -1| awk '{print $2}'" % netcard_name).read()
+ip_address = re.search(
+    r'(?<![\.\d])(?:25[0-5]\.|2[0-4]\d\.|[01]?\d\d?\.)'r'{3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)(?![\.\d])',
+    my_addr).group()
+```
