@@ -23,6 +23,8 @@ tags:
 大意就是 `/dev/sda2`分区包含一个文件系统错误，（inodes）在被损坏的孤立的节点表中。
 要用`fsck`这个命令修复。
 
+按照提示，使用命令修复即可: `fsck -y /dev/sda2`
+
 ### BusyBox
 幸运的是，出错后自动进入到`BusyBox`环境。`BusyBox`是什么呢？ 经过一通`man busybox`猛如虎的操作后，发现`BusyBox`是一个集合多种工具命令的工具箱，又或称嵌入式Linux系统的瑞士军刀。可用作急救盘。
 
