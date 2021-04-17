@@ -17,6 +17,7 @@ date: 2019-11-28 00:19:01
 |[アストルフォの幻想郷](https://asutorufa.github.io/)|编程||
 |[Raoul’s Pub](https://raoul1996.github.io/ )|||
 |[谓之小一](https://weizhixiaoyi.com/)|机器学习，深度学习|永远相信-美好的事情即将发生|
+|[vmaig](http://vmaig.com/)|python django 反汇编 unix环境高级编程||
 
 
 ## 网址导航

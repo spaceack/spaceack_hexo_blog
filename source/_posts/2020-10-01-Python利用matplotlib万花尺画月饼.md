@@ -1,6 +1,6 @@
 ---
 title: Python利用matplotlib万花尺画月饼
-author: 小云吞
+author: Spaceack
 date: 2020-10-01 21:00:00
 update: 2020-10-01 21:00:00
 categories: 算法

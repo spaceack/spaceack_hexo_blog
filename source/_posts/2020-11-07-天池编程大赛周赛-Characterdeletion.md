@@ -2,7 +2,7 @@
 title: 天池编程大赛周赛-Character deletion
 date: 2020-11-07 23:50:31
 update: 2020-11-07 23:50:31
-author: 小云吞
+author: Spaceack
 categories: 算法
 tags: 
   - python

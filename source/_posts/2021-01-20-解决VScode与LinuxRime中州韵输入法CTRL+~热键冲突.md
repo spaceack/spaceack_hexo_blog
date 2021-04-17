@@ -1,5 +1,5 @@
 ---
-title: Linux下检测某个ip端口的连通状态
+title: 解决VScode 与 LinuxRime 中州韵输入法CTRL+～热键位冲突
 author: 小云吞
 date: 2021-01-20 21:00:00
 update: 2021-01-20 21:00:00

@@ -1,6 +1,6 @@
 ---
 title: 智能家居HomeAssistant关联yeelight智能吸顶灯
-author: 小云吞
+author: Spaceack
 date: 2020-05-24 21:00:00
 update:  2020-05-24 21:00:00
 categories: 智能家具

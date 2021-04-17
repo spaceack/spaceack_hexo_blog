@@ -2,7 +2,7 @@
 title: Django-通过示例定制admin后台管理
 date: 2016-03-05 12:00:00
 update: 2020-02-14 23:00:00
-author: 小云吞
+author: Spaceack
 categories: Python
 tags: 
   - Django

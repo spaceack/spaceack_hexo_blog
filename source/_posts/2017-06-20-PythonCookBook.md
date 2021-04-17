@@ -3,7 +3,7 @@ title: Python CookBook
 date: 2017-06-20 08:57:27
 categories: Python
 update: 2020-08-20 23:00:00
-author: 小云吞
+author: Spaceack
 tags: 
   - platform
   - lsb_release
