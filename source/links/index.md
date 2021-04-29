@@ -68,7 +68,7 @@ date: 2019-11-28 00:19:01
 |[TAPD](https://www.tapd.cn/cloud_logins/login)|多人协作，看板|
 |[语雀](https://www.yuque.com/login)|多人协作，看板|
 |[蓝湖](https://lanhuapp.com/web/#/user/login)|多人协作，原型设计|
-
+|[pasteme](https://pasteme.cn/)|文本分享平台|
 
 ## 添加本站为友链
 ```bash
