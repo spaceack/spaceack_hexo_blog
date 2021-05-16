@@ -53,6 +53,8 @@ date: 2019-11-28 00:19:01
 |[蓝桥/实验楼](https://www.lanqiao.cn/)|技术实战，比赛|
 |[百度之星](https://star.baidu.com/)|编程比赛|
 |[华为云大赛](https://competition.huaweicloud.com/home)|编程比赛|
+|[codejam](g.co/codejam)|编程比赛|
+|[KAGGLE]|(https://www.kaggle.com/)|数据分析比赛|
 
 ### 规范化标准
 
@@ -76,11 +78,11 @@ date: 2019-11-28 00:19:01
 ## 添加本站为友链
 ```bash
 # 名称
-丸子家的小丸子
+编程之舞
 # 主页 
 http://spaceack.github.io/
 # markdown 链接
-[丸子家的小云吞](http://spaceack.github.io/)
+[编程之舞](http://spaceack.github.io/)
 # 标签
 Python, Linux
 # 简介
