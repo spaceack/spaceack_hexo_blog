@@ -1,0 +1,1133 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="天池大数据竞赛 Spaceack带你利用Pandas，趋势图与桑基图分析美国选民候选人喜好度"><meta name="keywords" content="python,数据分析,pandas,桑基图"><meta name="author" content="Spaceack"><meta name="copyright" content="Spaceack"><title>天池大数据竞赛 Spaceack带你利用Pandas，趋势图与桑基图分析美国选民候选人喜好度 | 编程之舞</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a81de194023de1f698dbc274732279cf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-115496937-1', 'auto');
+ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"><script>(function() {
+   var hm = document.createElement("script");
+   hm.src = "https://tajs.qq.com/stats?sId=66492401";
+   var s = document.getElementsByTagName("script")[0];
+   s.parentNode.insertBefore(hm, s);
+ })();</script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据预处理"><span class="toc-number">1.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据整合"><span class="toc-number">2.</span> <span class="toc-text">数据整合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据探索"><span class="toc-number">2.1.</span> <span class="toc-text">数据探索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式转换"><span class="toc-number">2.2.</span> <span class="toc-text">格式转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图"><span class="toc-number">3.</span> <span class="toc-text">绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-number">3.1.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用桑基图分析美国各州对党派的贡献度"><span class="toc-number">4.</span> <span class="toc-text">使用桑基图分析美国各州对党派的贡献度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#结论-1"><span class="toc-number">4.1.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.jpg"></div><div class="author-info__name text-center">Spaceack</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/spaceack" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">118</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">130</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">朋友-Links</div><a class="author-info-links__name text-center" href="http://spaceack.com">Spaceack</a><a class="author-info-links__name text-center" href="https://www.itrhx.com/" target="_blank" rel="noopener">TRHX’S BLOG</a><a class="author-info-links__name text-center" href="http://www.shellcodes.org/" target="_blank" rel="noopener">lu4nx@wiki</a><a class="author-info-links__name text-center" href="https://asutorufa.github.io/" target="_blank" rel="noopener">アストルフォの幻想郷</a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">编程之舞</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">时间线</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/links">友链</a><a class="site-page" href="/devices">设备</a><a class="site-page" href="/challenge">挑战</a><a class="site-page" href="/about">关于</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">天池大数据竞赛 Spaceack带你利用Pandas，趋势图与桑基图分析美国选民候选人喜好度</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-01-01</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"> 数据分析</a><span class="post-meta__separator">|</span><span class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">3.9k</span><span class="post-meta__separator">|</span><span>阅读时长: 17 分钟</span></span></div><div class="article-container" id="post-content"><p><strong>长文预警</strong></p>
+<p>首先，这是一篇面向新人的教程导向的分析文章，（by the way其实我也是新手，从比赛开始才学的Pandas库，这也是我的一篇学习笔记），所以会包含很多函数的基础用法，解题思路等等, 流程会比较详细。</p>
+<p>其次，本文在官方教程基础上会加入创新内容，但是绝不会为了用而用某种新方法，一定本着分析数据有所帮助的原则和对数据敬畏的态度来做。</p>
+<p>再者，为了更方便学习，请点击右上角蓝色的 Star 和 Fork 按钮。</p>
+<p><a href="!https://tianchi.aliyun.com/competition/entrance/531837/introduction?spm=5176.12281973.1005.3.11ae1f540dSho6">数据集下载: </a><br><a href="https://tianchi.aliyun.com/competition/entrance/531837/introduction?spm=5176.12281973.1005.3.11ae1f540dSho6" target="_blank" rel="noopener">https://tianchi.aliyun.com/competition/entrance/531837/introduction?spm=5176.12281973.1005.3.11ae1f540dSho6</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入相关处理包</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 加入下面这条语句可以在 JupyterLab 上渲染画布（ JupyterLab 是天池实验室的一部分）</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>数据预处理部分包含 <strong>数据导入</strong>，<strong>数据探索</strong>，<strong>数据整合</strong>，<strong>格式转换</strong>等多个步骤。这些步骤可穿插执行。</p>
+<p>这里第一步就是<strong>数据导入</strong>。</p>
+<p>Pandas 提供的 IO 工具组支持多种数据格式类型，包括基础的 CSV，JSON，SQL 格式。</p>
+<p>这里用到 <code>read_csv</code> 方法</p>
+<p>此方法第一个参数为文件路径, 这里对应着天池实验室挂载的数据，因为在 <strong>download</strong> 同一目录下, 所以直接写文件名即可。</p>
+<p>第二个参数 <code>sep</code> 为分隔符，用于将每行分解为若干列。默认是<code>,</code>逗号。</p>
+<p>第三个参数 <code>names</code> 为列名列表，当文件不包含列名时使用，列名列表中不允许有重复值。</p>
+<p><strong>扩展</strong>：若我们要分析文件中包含列名呢？有个 <code>header</code> 参数可以使用，当列名是首行时，设置 <code>header=0</code>。举一反三，有时候文件首行是文件的标题，第二行才是列名，那么设置 <code>header=1</code> 即可。</p>
+<p>将委员会和候选人一一对应，通过CAND_ID关联两个表</p>
+<p>由于候选人和委员会的联系表中无候选人姓名，只有候选人ID（<code>CAND_ID</code>），所以需要通过<code>CAND_ID</code> 从候选人表中获取到候选人姓名，最终得到候选人与委员会联系表 <code>ccl</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取候选人信息，由于原始数据没有表头，需要添加表头</span></span><br><span class="line">candidates = pd.read_csv(<span class="string">"weball20.txt"</span>, sep = <span class="string">'|'</span>,names=[<span class="string">'CAND_ID'</span>,<span class="string">'CAND_NAME'</span>,<span class="string">'CAND_ICI'</span>,<span class="string">'PTY_CD'</span>,<span class="string">'CAND_PTY_AFFILIATION'</span>,<span class="string">'TTL_RECEIPTS'</span>,</span><br><span class="line">                                                          <span class="string">'TRANS_FROM_AUTH'</span>,<span class="string">'TTL_DISB'</span>,<span class="string">'TRANS_TO_AUTH'</span>,<span class="string">'COH_BOP'</span>,<span class="string">'COH_COP'</span>,<span class="string">'CAND_CONTRIB'</span>,</span><br><span class="line">                                                          <span class="string">'CAND_LOANS'</span>,<span class="string">'OTHER_LOANS'</span>,<span class="string">'CAND_LOAN_REPAY'</span>,<span class="string">'OTHER_LOAN_REPAY'</span>,<span class="string">'DEBTS_OWED_BY'</span>,</span><br><span class="line">                                                          <span class="string">'TTL_INDIV_CONTRIB'</span>,<span class="string">'CAND_OFFICE_ST'</span>,<span class="string">'CAND_OFFICE_DISTRICT'</span>,<span class="string">'SPEC_ELECTION'</span>,<span class="string">'PRIM_ELECTION'</span>,<span class="string">'RUN_ELECTION'</span></span><br><span class="line">                                                          ,<span class="string">'GEN_ELECTION'</span>,<span class="string">'GEN_ELECTION_PRECENT'</span>,<span class="string">'OTHER_POL_CMTE_CONTRIB'</span>,<span class="string">'POL_PTY_CONTRIB'</span>,</span><br><span class="line">                                                          <span class="string">'CVG_END_DT'</span>,<span class="string">'INDIV_REFUNDS'</span>,<span class="string">'CMTE_REFUNDS'</span>])</span><br><span class="line"><span class="comment"># 读取候选人和委员会的联系信息</span></span><br><span class="line">ccl = pd.read_csv(<span class="string">"ccl.txt"</span>, sep = <span class="string">'|'</span>,names=[<span class="string">'CAND_ID'</span>,<span class="string">'CAND_ELECTION_YR'</span>,<span class="string">'FEC_ELECTION_YR'</span>,<span class="string">'CMTE_ID'</span>,<span class="string">'CMTE_TP'</span>,<span class="string">'CMTE_DSGN'</span>,<span class="string">'LINKAGE_ID'</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="数据整合"><a href="#数据整合" class="headerlink" title="数据整合"></a>数据整合</h2><p>我们现在已导入 <code>candidates</code> 候选人信息表，<code>ccl</code> 候选人与委员会关联表两张表。均为 <code>DataFrame</code> 类型。</p>
+<p>聪明的你会发现，两个表的表头都包含 <code>CAND_ID</code> 这个字段，那么这两张表会根据这个字段有所联系。那么我们可以用 <code>merge</code> 这个神奇的方法合并两张表。</p>
+<p><code>merge</code> 方法有几个重要的参数如下：</p>
+<ol>
+<li><code>left</code>： 在这里就是我们要合并左边的 <code>ccl</code> 表。</li>
+<li><code>right</code> ： 在这里就是我们要合并右边的 <code>candidates</code> 表。</li>
+<li><code>how</code>： 这是个带有默认参数的隐藏参数，默认为 <code>inner</code> （内连接），学过 <code>SQL</code> 的同学都懂得～ 肯定还会包含 outer（外链接）、left（左连接）、right（右连接）</li>
+<li><code>on</code> ：这个参数用来连接列名，若没有其它连接项，默认会把左右两个表头的交集字段作为连接字段。下面的代码是省略的写法，也可以这样表示 <code>ccl = pd.merge(ccl, candidates, on=&quot;CAND_ID&quot;, how=&quot;inner&quot;)</code></li>
+<li><code>left_on</code> ：用来指定左侧作为连接的表头。</li>
+<li><code>right_on</code>：用来指定右侧作为连接的表头， 下面的代码是省略的写法，也可以这样表示 <code>ccl = pd.merge(ccl, candidates, left_on=&quot;CAND_ID&quot;, right_on=&quot;CAND_ID&quot;, how=&quot;inner&quot;)</code></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关联两个表数据</span></span><br><span class="line">ccl = pd.merge(ccl, candidates)</span><br><span class="line"><span class="comment"># 提取出所需要的列</span></span><br><span class="line">ccl = pd.DataFrame(ccl, columns=[ <span class="string">'CMTE_ID'</span>,<span class="string">'CAND_ID'</span>, <span class="string">'CAND_NAME'</span>,<span class="string">'CAND_PTY_AFFILIATION'</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取个人捐赠数据，由于原始数据没有表头，需要添加表头</span></span><br><span class="line"><span class="comment"># 提示：读取本文件大概需要5-10s</span></span><br><span class="line">itcont = pd.read_csv(<span class="string">'itcont_2020_20200722_20200820.txt'</span>, sep=<span class="string">'|'</span>,names=[<span class="string">'CMTE_ID'</span>,<span class="string">'AMNDT_IND'</span>,<span class="string">'RPT_TP'</span>,<span class="string">'TRANSACTION_PGI'</span>,<span class="string">'IMAGE_NUM'</span>,<span class="string">'TRANSACTION_TP'</span>,<span class="string">'ENTITY_TP'</span>,<span class="string">'NAME'</span>,<span class="string">'CITY'</span>,<span class="string">'STATE'</span>,<span class="string">'ZIP_CODE'</span>,<span class="string">'EMPLOYER'</span>,<span class="string">'OCCUPATION'</span>,<span class="string">'TRANSACTION_DT'</span>,<span class="string">'TRANSACTION_AMT'</span>,<span class="string">'OTHER_ID'</span>,<span class="string">'TRAN_ID'</span>,<span class="string">'FILE_NUM'</span>,<span class="string">'MEMO_CD'</span>,<span class="string">'MEMO_TEXT'</span>,<span class="string">'SUB_ID'</span>],low_memory=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将候选人与委员会关系表ccl和个人捐赠数据表itcont合并，通过 CMTE_ID</span></span><br><span class="line">c_itcont =  pd.merge(ccl, itcont)</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看目前数据前6行, 若省略行数，默认显示5行</span></span><br><span class="line">c_itcont.head(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CMTE_ID</th>
+      <th>CAND_ID</th>
+      <th>CAND_NAME</th>
+      <th>CAND_PTY_AFFILIATION</th>
+      <th>AMNDT_IND</th>
+      <th>RPT_TP</th>
+      <th>TRANSACTION_PGI</th>
+      <th>IMAGE_NUM</th>
+      <th>TRANSACTION_TP</th>
+      <th>ENTITY_TP</th>
+      <th>...</th>
+      <th>EMPLOYER</th>
+      <th>OCCUPATION</th>
+      <th>TRANSACTION_DT</th>
+      <th>TRANSACTION_AMT</th>
+      <th>OTHER_ID</th>
+      <th>TRAN_ID</th>
+      <th>FILE_NUM</th>
+      <th>MEMO_CD</th>
+      <th>MEMO_TEXT</th>
+      <th>SUB_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031369</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>RETIRED</td>
+      <td>RETIRED</td>
+      <td>7242020</td>
+      <td>100</td>
+      <td>NaN</td>
+      <td>SA11AI.4909</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947991</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031369</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>VA HOSPITAL</td>
+      <td>LAB TECH</td>
+      <td>7242020</td>
+      <td>40</td>
+      <td>NaN</td>
+      <td>SA11AI.4908</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947993</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031370</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>VA HOSPITAL</td>
+      <td>LAB TECH</td>
+      <td>7312020</td>
+      <td>40</td>
+      <td>NaN</td>
+      <td>SA11AI.4916</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947994</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C00725697</td>
+      <td>H0AZ03461</td>
+      <td>WOOD, DANIEL</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>G2020</td>
+      <td>202010079285052516</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>POWERS-LEAVITT</td>
+      <td>INSURANCE AGENT</td>
+      <td>8102020</td>
+      <td>300</td>
+      <td>NaN</td>
+      <td>SA11AI.4683</td>
+      <td>1444556</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100920201857257629</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C00725697</td>
+      <td>H0AZ03461</td>
+      <td>WOOD, DANIEL</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>G2020</td>
+      <td>202010079285052518</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>UNEMPLOYED</td>
+      <td>NaN</td>
+      <td>8072020</td>
+      <td>500</td>
+      <td>NaN</td>
+      <td>SA11AI.4612</td>
+      <td>1444556</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100920201857257635</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>C00725697</td>
+      <td>H0AZ03461</td>
+      <td>WOOD, DANIEL</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>G2020</td>
+      <td>202010079285052519</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>SELF-EMPLOYED</td>
+      <td>DVM</td>
+      <td>7312020</td>
+      <td>500</td>
+      <td>NaN</td>
+      <td>SA11AI.4593</td>
+      <td>1444556</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100920201857257636</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 24 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看目前数据后3行, 若省略行数，默认显示5行</span></span><br><span class="line">c_itcont.head(n=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CMTE_ID</th>
+      <th>CAND_ID</th>
+      <th>CAND_NAME</th>
+      <th>CAND_PTY_AFFILIATION</th>
+      <th>AMNDT_IND</th>
+      <th>RPT_TP</th>
+      <th>TRANSACTION_PGI</th>
+      <th>IMAGE_NUM</th>
+      <th>TRANSACTION_TP</th>
+      <th>ENTITY_TP</th>
+      <th>...</th>
+      <th>EMPLOYER</th>
+      <th>OCCUPATION</th>
+      <th>TRANSACTION_DT</th>
+      <th>TRANSACTION_AMT</th>
+      <th>OTHER_ID</th>
+      <th>TRAN_ID</th>
+      <th>FILE_NUM</th>
+      <th>MEMO_CD</th>
+      <th>MEMO_TEXT</th>
+      <th>SUB_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031369</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>RETIRED</td>
+      <td>RETIRED</td>
+      <td>7242020</td>
+      <td>100</td>
+      <td>NaN</td>
+      <td>SA11AI.4909</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947991</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031369</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>VA HOSPITAL</td>
+      <td>LAB TECH</td>
+      <td>7242020</td>
+      <td>40</td>
+      <td>NaN</td>
+      <td>SA11AI.4908</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947993</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C00698084</td>
+      <td>H0AZ02182</td>
+      <td>MORGAN, JOSEPH DAVID</td>
+      <td>REP</td>
+      <td>A</td>
+      <td>Q3</td>
+      <td>P2020</td>
+      <td>202010069285031370</td>
+      <td>15</td>
+      <td>IND</td>
+      <td>...</td>
+      <td>VA HOSPITAL</td>
+      <td>LAB TECH</td>
+      <td>7312020</td>
+      <td>40</td>
+      <td>NaN</td>
+      <td>SA11AI.4916</td>
+      <td>1444070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4100820201856947994</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 24 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据规模 多少行 多少列</span></span><br><span class="line">c_itcont.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(756205, 24)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看整体数据信息，包括每个字段的名称、非空数量、字段的数据类型</span></span><br><span class="line">c_itcont.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+Int64Index: 756205 entries, 0 to 756204
+Data columns (total 24 columns):
+CMTE_ID                 756205 non-null object
+CAND_ID                 756205 non-null object
+CAND_NAME               756205 non-null object
+CAND_PTY_AFFILIATION    756205 non-null object
+AMNDT_IND               756205 non-null object
+RPT_TP                  756205 non-null object
+TRANSACTION_PGI         756205 non-null object
+IMAGE_NUM               756205 non-null int64
+TRANSACTION_TP          756205 non-null object
+ENTITY_TP               756205 non-null object
+NAME                    756205 non-null object
+CITY                    756159 non-null object
+STATE                   756160 non-null object
+ZIP_CODE                756092 non-null object
+EMPLOYER                737413 non-null object
+OCCUPATION              741294 non-null object
+TRANSACTION_DT          756205 non-null int64
+TRANSACTION_AMT         756205 non-null int64
+OTHER_ID                647200 non-null object
+TRAN_ID                 756205 non-null object
+FILE_NUM                756205 non-null int64
+MEMO_CD                 220 non-null object
+MEMO_TEXT               655693 non-null object
+SUB_ID                  756205 non-null int64
+dtypes: int64(5), object(19)
+memory usage: 144.2+ MB</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据表中数据类型的列的数据分布情况</span></span><br><span class="line">c_itcont.describe()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IMAGE_NUM</th>
+      <th>TRANSACTION_DT</th>
+      <th>TRANSACTION_AMT</th>
+      <th>FILE_NUM</th>
+      <th>SUB_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7.562050e+05</td>
+      <td>7.562050e+05</td>
+      <td>7.562050e+05</td>
+      <td>7.562050e+05</td>
+      <td>7.562050e+05</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2.020090e+17</td>
+      <td>7.887799e+06</td>
+      <td>1.504307e+02</td>
+      <td>1.439133e+06</td>
+      <td>4.091288e+18</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>4.071886e+11</td>
+      <td>3.857874e+05</td>
+      <td>2.320452e+03</td>
+      <td>2.325325e+03</td>
+      <td>4.642365e+15</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2.020072e+17</td>
+      <td>7.222020e+06</td>
+      <td>-5.600000e+03</td>
+      <td>1.427865e+06</td>
+      <td>4.072420e+18</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2.020092e+17</td>
+      <td>7.312020e+06</td>
+      <td>2.000000e+01</td>
+      <td>1.440015e+06</td>
+      <td>4.092520e+18</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>2.020092e+17</td>
+      <td>8.102020e+06</td>
+      <td>3.500000e+01</td>
+      <td>1.440320e+06</td>
+      <td>4.093020e+18</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2.020092e+17</td>
+      <td>8.152020e+06</td>
+      <td>1.000000e+02</td>
+      <td>1.440320e+06</td>
+      <td>4.093020e+18</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2.020101e+17</td>
+      <td>8.202020e+06</td>
+      <td>1.500000e+06</td>
+      <td>1.445380e+06</td>
+      <td>4.101020e+18</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h3 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#空值处理，统一填充 NOT PROVIDED</span></span><br><span class="line">c_itcont[<span class="string">'STATE'</span>].fillna(<span class="string">'NOT PROVIDED'</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">c_itcont[<span class="string">'EMPLOYER'</span>].fillna(<span class="string">'NOT PROVIDED'</span>,inplace=<span class="literal">True</span>)</span><br><span class="line">c_itcont[<span class="string">'OCCUPATION'</span>].fillna(<span class="string">'NOT PROVIDED'</span>,inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 对日期TRANSACTION_DT列进行处理</span></span><br><span class="line">c_itcont[<span class="string">'TRANSACTION_DT'</span>] = c_itcont[<span class="string">'TRANSACTION_DT'</span>] .astype(str)</span><br><span class="line"><span class="comment"># 将日期格式改为年月日  7242020	</span></span><br><span class="line">c_itcont[<span class="string">'TRANSACTION_DT'</span>] = [i[<span class="number">3</span>:<span class="number">7</span>]+i[<span class="number">0</span>]+i[<span class="number">1</span>:<span class="number">3</span>] <span class="keyword">for</span> i <span class="keyword">in</span> c_itcont[<span class="string">'TRANSACTION_DT'</span>] ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图"><a href="#绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图" class="headerlink" title="绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图"></a>绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算每个总统候选人所获得的捐款总额，然后排序，取前二位</span></span><br><span class="line">c_itcont.groupby(<span class="string">"CAND_NAME"</span>).sum().sort_values(<span class="string">"TRANSACTION_AMT"</span>,ascending=<span class="literal">False</span>).head(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>IMAGE_NUM</th>
+      <th>TRANSACTION_AMT</th>
+      <th>FILE_NUM</th>
+      <th>SUB_ID</th>
+    </tr>
+    <tr>
+      <th>CAND_NAME</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>BIDEN, JOSEPH R JR</th>
+      <td>1.025834e+23</td>
+      <td>68111142.0</td>
+      <td>7.307496e+11</td>
+      <td>2.077270e+24</td>
+    </tr>
+    <tr>
+      <th>TRUMP, DONALD J.</th>
+      <td>1.181873e+22</td>
+      <td>16594982.0</td>
+      <td>8.417584e+10</td>
+      <td>2.396038e+23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取需要的数据列</span></span><br><span class="line">c_itcont0 = pd.DataFrame(c_itcont, columns=[ <span class="string">'CAND_NAME'</span>, <span class="string">'TRANSACTION_AMT'</span>, <span class="string">'TRANSACTION_DT'</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 已知所获得的捐款总额前两位的总统候选人分别是'BIDEN, JOSEPH R JR', 'TRUMP, DONALD J.'， 筛选出来</span></span><br><span class="line">c_itcont1 = c_itcont0[c_itcont0[<span class="string">'CAND_NAME'</span>].isin([<span class="string">'BIDEN, JOSEPH R JR'</span>, <span class="string">'TRUMP, DONALD J.'</span>])]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为同一天会有多笔捐款入帐，需要做分组求和</span></span><br><span class="line">c_itcont2 = c_itcont1.groupby([<span class="string">'CAND_NAME'</span>, <span class="string">'TRANSACTION_DT'</span>]).sum()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为我们要看总额的趋势图，所以要做累加</span></span><br><span class="line">c_itcont3 = c_itcont2.groupby([<span class="string">'CAND_NAME'</span>, ]).cumsum()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 现在很快可以达到预期目标了</span></span><br><span class="line">c_itcont3</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>TRANSACTION_AMT</th>
+    </tr>
+    <tr>
+      <th>CAND_NAME</th>
+      <th>TRANSACTION_DT</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="30" valign="top">BIDEN, JOSEPH R JR</th>
+      <th>2020722</th>
+      <td>888622</td>
+    </tr>
+    <tr>
+      <th>2020723</th>
+      <td>1852227</td>
+    </tr>
+    <tr>
+      <th>2020724</th>
+      <td>3024292</td>
+    </tr>
+    <tr>
+      <th>2020725</th>
+      <td>3943847</td>
+    </tr>
+    <tr>
+      <th>2020726</th>
+      <td>5052629</td>
+    </tr>
+    <tr>
+      <th>2020727</th>
+      <td>6150050</td>
+    </tr>
+    <tr>
+      <th>2020728</th>
+      <td>7625248</td>
+    </tr>
+    <tr>
+      <th>2020729</th>
+      <td>8900851</td>
+    </tr>
+    <tr>
+      <th>2020730</th>
+      <td>9964382</td>
+    </tr>
+    <tr>
+      <th>2020731</th>
+      <td>12305972</td>
+    </tr>
+    <tr>
+      <th>2020801</th>
+      <td>13391021</td>
+    </tr>
+    <tr>
+      <th>2020802</th>
+      <td>14208260</td>
+    </tr>
+    <tr>
+      <th>2020803</th>
+      <td>15063070</td>
+    </tr>
+    <tr>
+      <th>2020804</th>
+      <td>16138452</td>
+    </tr>
+    <tr>
+      <th>2020805</th>
+      <td>17317433</td>
+    </tr>
+    <tr>
+      <th>2020806</th>
+      <td>18293448</td>
+    </tr>
+    <tr>
+      <th>2020807</th>
+      <td>19246279</td>
+    </tr>
+    <tr>
+      <th>2020808</th>
+      <td>20152637</td>
+    </tr>
+    <tr>
+      <th>2020809</th>
+      <td>20996972</td>
+    </tr>
+    <tr>
+      <th>2020810</th>
+      <td>22015682</td>
+    </tr>
+    <tr>
+      <th>2020811</th>
+      <td>26905056</td>
+    </tr>
+    <tr>
+      <th>2020812</th>
+      <td>32932121</td>
+    </tr>
+    <tr>
+      <th>2020813</th>
+      <td>38604052</td>
+    </tr>
+    <tr>
+      <th>2020814</th>
+      <td>41666574</td>
+    </tr>
+    <tr>
+      <th>2020815</th>
+      <td>44125928</td>
+    </tr>
+    <tr>
+      <th>2020816</th>
+      <td>46254874</td>
+    </tr>
+    <tr>
+      <th>2020817</th>
+      <td>49826137</td>
+    </tr>
+    <tr>
+      <th>2020818</th>
+      <td>53584270</td>
+    </tr>
+    <tr>
+      <th>2020819</th>
+      <td>58989963</td>
+    </tr>
+    <tr>
+      <th>2020820</th>
+      <td>68111142</td>
+    </tr>
+    <tr>
+      <th rowspan="30" valign="top">TRUMP, DONALD J.</th>
+      <th>2020722</th>
+      <td>330603</td>
+    </tr>
+    <tr>
+      <th>2020723</th>
+      <td>554920</td>
+    </tr>
+    <tr>
+      <th>2020724</th>
+      <td>828209</td>
+    </tr>
+    <tr>
+      <th>2020725</th>
+      <td>1035861</td>
+    </tr>
+    <tr>
+      <th>2020726</th>
+      <td>1529042</td>
+    </tr>
+    <tr>
+      <th>2020727</th>
+      <td>2044076</td>
+    </tr>
+    <tr>
+      <th>2020728</th>
+      <td>2499171</td>
+    </tr>
+    <tr>
+      <th>2020729</th>
+      <td>3216022</td>
+    </tr>
+    <tr>
+      <th>2020730</th>
+      <td>4346359</td>
+    </tr>
+    <tr>
+      <th>2020731</th>
+      <td>6338855</td>
+    </tr>
+    <tr>
+      <th>2020801</th>
+      <td>6688166</td>
+    </tr>
+    <tr>
+      <th>2020802</th>
+      <td>6925401</td>
+    </tr>
+    <tr>
+      <th>2020803</th>
+      <td>7273299</td>
+    </tr>
+    <tr>
+      <th>2020804</th>
+      <td>7862177</td>
+    </tr>
+    <tr>
+      <th>2020805</th>
+      <td>8175442</td>
+    </tr>
+    <tr>
+      <th>2020806</th>
+      <td>8501605</td>
+    </tr>
+    <tr>
+      <th>2020807</th>
+      <td>8899471</td>
+    </tr>
+    <tr>
+      <th>2020808</th>
+      <td>9124955</td>
+    </tr>
+    <tr>
+      <th>2020809</th>
+      <td>9404411</td>
+    </tr>
+    <tr>
+      <th>2020810</th>
+      <td>10286254</td>
+    </tr>
+    <tr>
+      <th>2020811</th>
+      <td>10856855</td>
+    </tr>
+    <tr>
+      <th>2020812</th>
+      <td>11540551</td>
+    </tr>
+    <tr>
+      <th>2020813</th>
+      <td>12298919</td>
+    </tr>
+    <tr>
+      <th>2020814</th>
+      <td>12717476</td>
+    </tr>
+    <tr>
+      <th>2020815</th>
+      <td>13483142</td>
+    </tr>
+    <tr>
+      <th>2020816</th>
+      <td>13812398</td>
+    </tr>
+    <tr>
+      <th>2020817</th>
+      <td>14453930</td>
+    </tr>
+    <tr>
+      <th>2020818</th>
+      <td>15086445</td>
+    </tr>
+    <tr>
+      <th>2020819</th>
+      <td>15665254</td>
+    </tr>
+    <tr>
+      <th>2020820</th>
+      <td>16594982</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 整理下排列索引，这里用到了索引和列标题转换与转置操作</span></span><br><span class="line">c_itcont4 = c_itcont3.unstack().T</span><br><span class="line">c_itcont4</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: right;
+}</code></pre><p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CAND_NAME</th>
+      <th>BIDEN, JOSEPH R JR</th>
+      <th>TRUMP, DONALD J.</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>TRANSACTION_DT</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="30" valign="top">TRANSACTION_AMT</th>
+      <th>2020722</th>
+      <td>888622</td>
+      <td>330603</td>
+    </tr>
+    <tr>
+      <th>2020723</th>
+      <td>1852227</td>
+      <td>554920</td>
+    </tr>
+    <tr>
+      <th>2020724</th>
+      <td>3024292</td>
+      <td>828209</td>
+    </tr>
+    <tr>
+      <th>2020725</th>
+      <td>3943847</td>
+      <td>1035861</td>
+    </tr>
+    <tr>
+      <th>2020726</th>
+      <td>5052629</td>
+      <td>1529042</td>
+    </tr>
+    <tr>
+      <th>2020727</th>
+      <td>6150050</td>
+      <td>2044076</td>
+    </tr>
+    <tr>
+      <th>2020728</th>
+      <td>7625248</td>
+      <td>2499171</td>
+    </tr>
+    <tr>
+      <th>2020729</th>
+      <td>8900851</td>
+      <td>3216022</td>
+    </tr>
+    <tr>
+      <th>2020730</th>
+      <td>9964382</td>
+      <td>4346359</td>
+    </tr>
+    <tr>
+      <th>2020731</th>
+      <td>12305972</td>
+      <td>6338855</td>
+    </tr>
+    <tr>
+      <th>2020801</th>
+      <td>13391021</td>
+      <td>6688166</td>
+    </tr>
+    <tr>
+      <th>2020802</th>
+      <td>14208260</td>
+      <td>6925401</td>
+    </tr>
+    <tr>
+      <th>2020803</th>
+      <td>15063070</td>
+      <td>7273299</td>
+    </tr>
+    <tr>
+      <th>2020804</th>
+      <td>16138452</td>
+      <td>7862177</td>
+    </tr>
+    <tr>
+      <th>2020805</th>
+      <td>17317433</td>
+      <td>8175442</td>
+    </tr>
+    <tr>
+      <th>2020806</th>
+      <td>18293448</td>
+      <td>8501605</td>
+    </tr>
+    <tr>
+      <th>2020807</th>
+      <td>19246279</td>
+      <td>8899471</td>
+    </tr>
+    <tr>
+      <th>2020808</th>
+      <td>20152637</td>
+      <td>9124955</td>
+    </tr>
+    <tr>
+      <th>2020809</th>
+      <td>20996972</td>
+      <td>9404411</td>
+    </tr>
+    <tr>
+      <th>2020810</th>
+      <td>22015682</td>
+      <td>10286254</td>
+    </tr>
+    <tr>
+      <th>2020811</th>
+      <td>26905056</td>
+      <td>10856855</td>
+    </tr>
+    <tr>
+      <th>2020812</th>
+      <td>32932121</td>
+      <td>11540551</td>
+    </tr>
+    <tr>
+      <th>2020813</th>
+      <td>38604052</td>
+      <td>12298919</td>
+    </tr>
+    <tr>
+      <th>2020814</th>
+      <td>41666574</td>
+      <td>12717476</td>
+    </tr>
+    <tr>
+      <th>2020815</th>
+      <td>44125928</td>
+      <td>13483142</td>
+    </tr>
+    <tr>
+      <th>2020816</th>
+      <td>46254874</td>
+      <td>13812398</td>
+    </tr>
+    <tr>
+      <th>2020817</th>
+      <td>49826137</td>
+      <td>14453930</td>
+    </tr>
+    <tr>
+      <th>2020818</th>
+      <td>53584270</td>
+      <td>15086445</td>
+    </tr>
+    <tr>
+      <th>2020819</th>
+      <td>58989963</td>
+      <td>15665254</td>
+    </tr>
+    <tr>
+      <th>2020820</th>
+      <td>68111142</td>
+      <td>16594982</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>绘制收到捐赠额最多的两位候选人的总捐赠额变化趋势图</p>
+<p>这里使用 <code>plot</code> 方法绘制趋势图，（由于天池实验室环境不是最新的库，兼容问题会报警告，但是不影响出图。 我在其它环境测试没问题，图的横坐标会有日期显示的。）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grid参数 用来显示后面的辅助网格线， rot 使横坐标的日期以45度排列， 不会导致产生字符过长导致叠加的问题。（由于天池实验室环境不是最新的库，兼容问题会报警告，横坐标的日期标注无法显示。）</span></span><br><span class="line">c_itcont4.plot(grid=<span class="literal">True</span>, rot=<span class="number">45</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="trend.png" alt="趋势图"></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>由趋势图可以看出，在7月22日至8月20日期间，拜登收到的捐款总额明显高于特朗普。且在8月份有更为显著的变化。</p>
+<h2 id="使用桑基图分析美国各州对党派的贡献度"><a href="#使用桑基图分析美国各州对党派的贡献度" class="headerlink" title="使用桑基图分析美国各州对党派的贡献度"></a>使用桑基图分析美国各州对党派的贡献度</h2><p>桑基图（Sankey），即桑基能量分流图，是一种高级可视化图形。常用于金融等数据的可视化分析。最明显的特征就是，始末端的分支宽度总和相等，即所有主支宽度的总和应与所有分出去的分支宽度的总和相等，保持能量的平衡。</p>
+<p>一个州的捐款额可能会流向不同的党派，用桑基图表示的效果就非常好。可以很清楚看出某个党派的贡献流向。</p>
+<p>这里要用到第三方库 <code>pyecharts</code>，用来画桑吉图比较方便，还支持交互式操作（鼠标悬停某条能量线高亮并显示金额数量），首先安装第三方库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!pip install pyecharts --user</span><br></pre></td></tr></table></figure>
+
+<pre><code>Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Requirement already satisfied: pyecharts in /data/nas/workspace/envs/python3.6/site-packages (1.9.0)
+Requirement already satisfied: prettytable in /data/nas/workspace/envs/python3.6/site-packages (from pyecharts) (1.0.1)
+Requirement already satisfied: simplejson in /data/nas/workspace/envs/python3.6/site-packages (from pyecharts) (3.17.2)
+Requirement already satisfied: jinja2 in /opt/conda/lib/python3.6/site-packages (from pyecharts) (2.11.2)
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.6/site-packages (from prettytable-&gt;pyecharts) (49.6.0)
+Requirement already satisfied: wcwidth in /opt/conda/lib/python3.6/site-packages (from prettytable-&gt;pyecharts) (0.2.5)
+Requirement already satisfied: MarkupSafe&gt;=0.23 in /opt/conda/lib/python3.6/site-packages (from jinja2-&gt;pyecharts) (1.1.1)</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取需要的数据列</span></span><br><span class="line">c_itcont5 = pd.DataFrame(c_itcont, columns=[ <span class="string">'STATE'</span>, <span class="string">'TRANSACTION_AMT'</span>, <span class="string">'CAND_PTY_AFFILIATION'</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取党派集合</span></span><br><span class="line">c_itcont_CAND_PTY_AFFILIATION = pd.DataFrame(c_itcont5,columns=[<span class="string">'CAND_PTY_AFFILIATION'</span>])</span><br><span class="line">cgc = c_itcont_CAND_PTY_AFFILIATION.groupby(<span class="string">'CAND_PTY_AFFILIATION'</span>).count()</span><br><span class="line">node2 = list(cgc.index)</span><br><span class="line">node2</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[&apos;BDY&apos;,
+ &apos;CON&apos;,
+ &apos;DEM&apos;,
+ &apos;DFL&apos;,
+ &apos;GRE&apos;,
+ &apos;IND&apos;,
+ &apos;LIB&apos;,
+ &apos;NON&apos;,
+ &apos;NPA&apos;,
+ &apos;OTH&apos;,
+ &apos;REP&apos;,
+ &apos;UNK&apos;]</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取州集合</span></span><br><span class="line">c_itcont_STATE = pd.DataFrame(c_itcont5,columns=[<span class="string">'STATE'</span>])</span><br><span class="line">sgc = c_itcont_STATE.groupby(<span class="string">'STATE'</span>).count()</span><br><span class="line">node1 = list(sgc.index)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为方便阅读， 引入汉化字典</span></span><br><span class="line">scp = &#123;<span class="string">'AA'</span>: <span class="string">'美洲军'</span>,</span><br><span class="line"> <span class="string">'AE'</span>: <span class="string">'军事地区'</span>,</span><br><span class="line"> <span class="string">'AK'</span>: <span class="string">'阿拉斯加州'</span>,</span><br><span class="line"> <span class="string">'AL'</span>: <span class="string">'阿拉巴马州'</span>,</span><br><span class="line"> <span class="string">'AP'</span>: <span class="string">'太平洋军事机构'</span>,</span><br><span class="line"> <span class="string">'AR'</span>: <span class="string">'阿肯色州'</span>,</span><br><span class="line"> <span class="string">'AS'</span>: <span class="string">'美属萨摩亚群岛'</span>,</span><br><span class="line"> <span class="string">'AZ'</span>: <span class="string">'阿利桑那州'</span>,</span><br><span class="line"> <span class="string">'CA'</span>: <span class="string">'加利福尼亚州'</span>,</span><br><span class="line"> <span class="string">'CO'</span>: <span class="string">'科罗拉多州'</span>,</span><br><span class="line"> <span class="string">'CT'</span>: <span class="string">'康涅狄格州'</span>,</span><br><span class="line"> <span class="string">'DC'</span>: <span class="string">'华盛顿DC'</span>,</span><br><span class="line"> <span class="string">'DE'</span>: <span class="string">'特拉华州'</span>,</span><br><span class="line"> <span class="string">'FL'</span>: <span class="string">'佛罗里达州'</span>,</span><br><span class="line"> <span class="string">'FM'</span>: <span class="string">'FM联邦'</span>,</span><br><span class="line"> <span class="string">'GA'</span>: <span class="string">'乔治亚州'</span>,</span><br><span class="line"> <span class="string">'GU'</span>: <span class="string">'关岛'</span>,</span><br><span class="line"> <span class="string">'HI'</span>: <span class="string">'夏威夷州'</span>,</span><br><span class="line"> <span class="string">'IA'</span>: <span class="string">'爱荷华州'</span>,</span><br><span class="line"> <span class="string">'ID'</span>: <span class="string">'爱达荷州'</span>,</span><br><span class="line"> <span class="string">'IL'</span>: <span class="string">'伊利诺斯州'</span>,</span><br><span class="line"> <span class="string">'IN'</span>: <span class="string">'印第安纳州'</span>,</span><br><span class="line"> <span class="string">'KS'</span>: <span class="string">'堪萨斯州'</span>,</span><br><span class="line"> <span class="string">'KY'</span>: <span class="string">'KY'</span>,</span><br><span class="line"> <span class="string">'LA'</span>: <span class="string">'路易斯安那州'</span>,</span><br><span class="line"> <span class="string">'MA'</span>: <span class="string">'马萨诸塞州'</span>,</span><br><span class="line"> <span class="string">'MD'</span>: <span class="string">'马里兰州'</span>,</span><br><span class="line"> <span class="string">'ME'</span>: <span class="string">'缅因州'</span>,</span><br><span class="line"> <span class="string">'MI'</span>: <span class="string">'密歇根州'</span>,</span><br><span class="line"> <span class="string">'MN'</span>: <span class="string">'明尼苏达州'</span>,</span><br><span class="line"> <span class="string">'MO'</span>: <span class="string">'密苏里州'</span>,</span><br><span class="line"> <span class="string">'MP'</span>: <span class="string">'MP'</span>,</span><br><span class="line"> <span class="string">'MS'</span>: <span class="string">'密西西比州'</span>,</span><br><span class="line"> <span class="string">'MT'</span>: <span class="string">'蒙大拿州'</span>,</span><br><span class="line"> <span class="string">'NC'</span>: <span class="string">'北卡罗来纳州'</span>,</span><br><span class="line"> <span class="string">'ND'</span>: <span class="string">'北达科他州'</span>,</span><br><span class="line"> <span class="string">'NE'</span>: <span class="string">'内布拉斯加州'</span>,</span><br><span class="line"> <span class="string">'NH'</span>: <span class="string">'新罕布什尔州'</span>,</span><br><span class="line"> <span class="string">'NJ'</span>: <span class="string">'新泽西州'</span>,</span><br><span class="line"> <span class="string">'NM'</span>: <span class="string">'新墨西哥州'</span>,</span><br><span class="line"> <span class="string">'NOT PROVIDED'</span>: <span class="string">'NOT PROVIDED'</span>,</span><br><span class="line"> <span class="string">'NV'</span>: <span class="string">'内华达州'</span>,</span><br><span class="line"> <span class="string">'NY'</span>: <span class="string">'纽约州'</span>,</span><br><span class="line"> <span class="string">'OH'</span>: <span class="string">'俄亥俄州'</span>,</span><br><span class="line"> <span class="string">'OK'</span>: <span class="string">'OK'</span>,</span><br><span class="line"> <span class="string">'OR'</span>: <span class="string">'俄勒冈州'</span>,</span><br><span class="line"> <span class="string">'PA'</span>: <span class="string">'宾夕法尼亚州'</span>,</span><br><span class="line"> <span class="string">'PR'</span>: <span class="string">'PR'</span>,</span><br><span class="line"> <span class="string">'PW'</span>: <span class="string">'PW'</span>,</span><br><span class="line"> <span class="string">'RI'</span>: <span class="string">'罗得岛州'</span>,</span><br><span class="line"> <span class="string">'SC'</span>: <span class="string">'南卡罗来纳州'</span>,</span><br><span class="line"> <span class="string">'SD'</span>: <span class="string">'南达科他州'</span>,</span><br><span class="line"> <span class="string">'TN'</span>: <span class="string">'田纳西州'</span>,</span><br><span class="line"> <span class="string">'TX'</span>: <span class="string">'得克萨斯州'</span>,</span><br><span class="line"> <span class="string">'UT'</span>: <span class="string">'犹他州'</span>,</span><br><span class="line"> <span class="string">'VA'</span>: <span class="string">'弗吉尼亚州'</span>,</span><br><span class="line"> <span class="string">'VI'</span>: <span class="string">'VI'</span>,</span><br><span class="line"> <span class="string">'VT'</span>: <span class="string">'佛蒙特州'</span>,</span><br><span class="line"> <span class="string">'WA'</span>: <span class="string">'华盛顿州'</span>,</span><br><span class="line"> <span class="string">'WI'</span>: <span class="string">'威斯康辛州'</span>,</span><br><span class="line"> <span class="string">'WV'</span>: <span class="string">'西弗吉尼亚州'</span>,</span><br><span class="line"> <span class="string">'WY'</span>: <span class="string">'怀俄明州'</span>,</span><br><span class="line"> <span class="string">'ZZ'</span>: <span class="string">'ZZ'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将集合加入到节点列表，nodes需要把桑基图中出现的名称全部设置进去，并且要保证links中的名称与name相同</span></span><br><span class="line">nodes = []</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> node1:</span><br><span class="line">    nodes.append(&#123;<span class="string">'name'</span>: scp[n]&#125;)</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> node2:</span><br><span class="line">    nodes.append(&#123;<span class="string">'name'</span>: n&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 做分组聚合</span></span><br><span class="line">cgs = c_itcont5.groupby([<span class="string">'STATE'</span>,<span class="string">'CAND_PTY_AFFILIATION'</span>]).sum()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将聚合结果加入到链接列表， links代表节点关系，source表示起点，target表示终点，需要将节点关系全部输入进去，value表示节点长度</span></span><br><span class="line">links = []</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> cgs.iterrows():</span><br><span class="line">    links.append(&#123;<span class="string">'source'</span>: scp[row[<span class="number">0</span>][<span class="number">0</span>]], <span class="string">'target'</span>: row[<span class="number">0</span>][<span class="number">1</span>], <span class="string">'value'</span>: int(row[<span class="number">1</span>][<span class="number">0</span>])&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Page, Sankey</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sankey = Sankey(init_opts=opts.InitOpts(width=<span class="string">"1024"</span>, height=<span class="string">"768"</span>))		<span class="comment">#可以设置大小和图标名称</span></span><br><span class="line">sankey.add(</span><br><span class="line">    <span class="string">'各州捐款额流向图'</span>,				<span class="comment">#名称</span></span><br><span class="line">    nodes,					<span class="comment">#输入节点，如果导入json数据，nodes=json['nodes]</span></span><br><span class="line">    links,					<span class="comment">#输入关系,nodes=json['links']</span></span><br><span class="line">    linestyle_opt=opts.LineStyleOpts(opacity=<span class="number">0.3</span>, curve=<span class="number">0.5</span>, color=<span class="string">"source"</span>, width=<span class="number">10</span>),</span><br><span class="line">    label_opts=opts.LabelOpts(position=<span class="string">"right"</span>, is_show=<span class="literal">True</span>, color=<span class="string">'red'</span>),</span><br><span class="line">    node_gap=<span class="number">1</span></span><br><span class="line">)</span><br><span class="line">sankey.render()</span><br><span class="line"><span class="comment"># 生成的桑基图可通过下方目录查看</span></span><br></pre></td></tr></table></figure>
+<p><img src="sankey.gif" alt="桑基图"></p>
+<pre><code>&apos;/data/nas/workspace/jupyter/download/render.html&apos;</code></pre><h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><p>由各州全款额流向图可以非常快速的得知：加利福尼亚州，纽约州，马萨诸塞州在7月22日至8月20日是对民主党贡献最多的三大州。</p>
+<p>佛罗里达州和德克萨斯州对两大党的贡献几乎相同，但更倾向于共和党，也是对共和党贡献较大的两个州。</p>
+<p>桑基图会包含很多数据元素，通过桑基图可以探索更多的数据，例如去除两大党的情况和仅比较两大党的情况等等。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" target="_blank" rel="noopener">Spaceack</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://spaceack.com/2021/01/01/2021-01-01-%E5%A4%A9%E6%B1%A0%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B-%E8%B6%8B%E5%8A%BF%E5%9B%BE%E4%B8%8E%E6%A1%91%E5%9F%BA%E5%9B%BE%E5%88%86%E6%9E%90%E7%BE%8E%E5%9B%BD%E9%80%89%E6%B0%91%E5%80%99%E9%80%89%E4%BA%BA%E5%96%9C%E5%A5%BD%E5%BA%A6/">http://spaceack.com/2021/01/01/2021-01-01-%E5%A4%A9%E6%B1%A0%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B-%E8%B6%8B%E5%8A%BF%E5%9B%BE%E4%B8%8E%E6%A1%91%E5%9F%BA%E5%9B%BE%E5%88%86%E6%9E%90%E7%BE%8E%E5%9B%BD%E9%80%89%E6%B0%91%E5%80%99%E9%80%89%E4%BA%BA%E5%96%9C%E5%A5%BD%E5%BA%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://spaceack.com">编程之舞</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a><a class="post-meta__tags" href="/tags/pandas/">pandas</a><a class="post-meta__tags" href="/tags/%E6%A1%91%E5%9F%BA%E5%9B%BE/">桑基图</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="/img/weixin.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/01/20/2021-01-20-%E8%A7%A3%E5%86%B3VScode%E4%B8%8ELinuxRime%E4%B8%AD%E5%B7%9E%E9%9F%B5%E8%BE%93%E5%85%A5%E6%B3%95CTRL+~%E7%83%AD%E9%94%AE%E5%86%B2%E7%AA%81/"><i class="fa fa-chevron-left">  </i><span>解决VScode 与 LinuxRime 中州韵输入法CTRL+～热键位冲突</span></a></div><div class="next-post pull-right"><a href="/2020/11/18/2020-11-18-Postman%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"><span>Postman使用技巧</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '72a672ddfc6e3a4fecca',
+  clientSecret: '3d9d7e44e8177b0b25c584f878bf463b842cf240',
+  repo: 'spaceack.github.io',
+  owner: 'spaceack',
+  admin: 'spaceack',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2014 - 2021 By Spaceack</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">ヾ(o◕∀◕)ﾉヾ美味的丸子最好吃啦</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>

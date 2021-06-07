@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="2020计蒜之道预赛第二场-群星"><meta name="keywords" content="python,算法,简单,模拟"><meta name="author" content="Spaceack"><meta name="copyright" content="Spaceack"><title>2020计蒜之道预赛第二场-群星 | 编程之舞</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a81de194023de1f698dbc274732279cf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-115496937-1', 'auto');
+ga('send', 'pageview');</script><link rel="dns-prefetch" href="http://ta.qq.com"><script>(function() {
+   var hm = document.createElement("script");
+   hm.src = "https://tajs.qq.com/stats?sId=66492401";
+   var s = document.getElementsByTagName("script")[0];
+   s.parentNode.insertBefore(hm, s);
+ })();</script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-number">1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.jpg"></div><div class="author-info__name text-center">Spaceack</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/spaceack" target="_blank" rel="noopener">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">118</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">130</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">朋友-Links</div><a class="author-info-links__name text-center" href="http://spaceack.com">Spaceack</a><a class="author-info-links__name text-center" href="https://www.itrhx.com/" target="_blank" rel="noopener">TRHX’S BLOG</a><a class="author-info-links__name text-center" href="http://www.shellcodes.org/" target="_blank" rel="noopener">lu4nx@wiki</a><a class="author-info-links__name text-center" href="https://asutorufa.github.io/" target="_blank" rel="noopener">アストルフォの幻想郷</a></div></div></div><div id="content-outer"><div class="plain" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">编程之舞</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">时间线</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/links">友链</a><a class="site-page" href="/devices">设备</a><a class="site-page" href="/challenge">挑战</a><a class="site-page" href="/about">关于</a></span><span class="pull-right"></span></div></div><div class="layout" id="content-inner"><article id="post"><div class="plain" id="post-title">2020计蒜之道预赛第二场-群星</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-18</time><span class="post-meta__separator">|</span><i class="fa fa-inbox" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/"> 算法</a><span class="post-meta__separator">|</span><span class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">909</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></span></div><div class="article-container" id="post-content"><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>蒜头君是一个 P 社玩家，每天从计蒜客下班回家之后的第一件事情就是打开《群星》，开始继续他的第四天灾之旅。这次他把注意力集中到了银河市场里面。</p>
+<p>银河市场里面商品的价格都通过以下公式计算：</p>
+<p>P = B * basePrice / S</p>
+<p>price = \displaystyle \frac{buy}{sell} * basePriceprice=<br>sell<br>buy<br>​<br> ∗basePrice</p>
+<p>其中 priceprice 是某个商品现在的单位价格，sellsell 是该商品目前所有玩家在银河市场的总出售量， buy 是该商品目前所有玩家在银河市场的总购买量（buy 或 sell 为 0 的时候在公式里面均被视为 1），basePrice 是该商品的起始单位价格。</p>
+<p>可是暗物质并不适用这条规则，因为蒜头君垄断了整个银河系的暗物质生产，并决定让暗物质的价格和合金在银河市场里面的价格挂钩，即暗物质的 单位价格 和合金 单位价格 的 比值 是一直不变的。</p>
+<p>现在蒜头君手上有银河市场里面合金的完整交易数据、合金与暗物质各自的起始价格，现在蒜头君需要知道每一次合金交易之后暗物质当前的单价应该是多少。</p>
+<p>输入格式<br>第一行有三个实数 a（为 alloy 的简写）和 dmdm（为 dark matter 的简写），为合金和暗物质的初始单位价格，和一个整数 n 表示蒜头君手上拿到的合金交易次数。</p>
+<p>往后 n 行每一行输入一个实数 x：</p>
+<p>如果为正数，表示这次交易是某个玩家从银河市场购买了合金，且购买的量是 x 单位。<br>如果为负数，表示这次交易是某个玩家向银河市场出售了合金，且出售的量是 −x 单位。<br>数据约定 1\le n \le 100001≤n≤10000，0&lt;a,dm\le100000&lt;a,dm≤10000，0&lt;|x|\le100000&lt;∣x∣≤10000。</p>
+<p>输出格式<br>输出总共有 nn 行，每一行表示每一次合金交易之后暗物质的单价是多少，你的答案和标准答案的误差不能超过 10^{-3}10<br>−3<br> 。</p>
+<p>如果你觉得题意比较难理解，可以再认真看一看样例数据和样例解释。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><ul>
+<li><p>示例 1:</p>
+<p>  输入</p>
+  <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.2</span> <span class="number">16</span> <span class="number">3</span></span><br><span class="line"><span class="number">1.5</span></span><br><span class="line"><span class="number">-6</span></span><br><span class="line"><span class="number">16.5</span></span><br></pre></td></tr></table></figure>
+
+<p>  输出</p>
+  <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">24.000</span></span><br><span class="line"><span class="number">4.000</span></span><br><span class="line"><span class="number">48.000</span></span><br></pre></td></tr></table></figure>
+
+<p>  样例解释</p>
+<pre><code>银河市场建立的时候，合金和暗物质的单价分别为 3.2 和 16。
+
+第一次交易，某个玩家从银河市场中买走了 1.5 单位合金，此时暗物质的单价为 16\times 1.5/1= 24 16×1.5/1=24。
+
+第二次交易，某个玩家向银河市场中出售了 6 单位合金，此时暗物质的单价为 16\times 1.5/6= 41 6×1.5/6=4。
+
+第三次交易，某个玩家从银河市场中买走了 16.5单位合金，此时暗物质的单价为 16\times (1.5+16.5)/6= 48 16×(1.5+16.5)/6=48。</code></pre></li>
+</ul>
+<hr>
+<ul>
+<li><p>解题思路</p>
+<p>  很简单的模拟题， 题目描述会让人困惑， 通过样例倒是很容易理解。</p>
+</li>
+<li><p>题解1:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">a = input().split()</span><br><span class="line">bp = float(a[<span class="number">1</span>])</span><br><span class="line">num = int(a[<span class="number">2</span>])</span><br><span class="line">input_line = []</span><br><span class="line">result = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(int(num)):</span><br><span class="line">    input_line.append(input())</span><br><span class="line"><span class="comment"># 处理逻辑</span></span><br><span class="line">sell = <span class="number">0.0</span></span><br><span class="line">buy = <span class="number">0.0</span></span><br><span class="line"><span class="keyword">for</span> index, x <span class="keyword">in</span> enumerate(input_line):</span><br><span class="line">    x = float(x)</span><br><span class="line">    sell = sell <span class="keyword">if</span> sell != <span class="number">0</span> <span class="keyword">else</span> <span class="number">1.0</span></span><br><span class="line">    buy = buy <span class="keyword">if</span> buy != <span class="number">0</span> <span class="keyword">else</span> <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">0</span>:</span><br><span class="line">       buy = buy + x <span class="keyword">if</span> buy != <span class="number">1.0</span> <span class="keyword">else</span> x</span><br><span class="line">    <span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">       sell = sell + abs(x) <span class="keyword">if</span> sell != <span class="number">1.0</span> <span class="keyword">else</span> abs(x)</span><br><span class="line">    dm_price = bp * (buy / sell)</span><br><span class="line">    result.append(dm_price)</span><br><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> result:</span><br><span class="line">    print(x)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" target="_blank" rel="noopener">Spaceack</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://spaceack.com/2020/09/18/2020-09-18-2020%E8%AE%A1%E8%92%9C%E4%B9%8B%E9%81%93%E9%A2%84%E8%B5%9B%E7%AC%AC%E4%BA%8C%E5%9C%BA-%E7%BE%A4%E6%98%9F/">http://spaceack.com/2020/09/18/2020-09-18-2020%E8%AE%A1%E8%92%9C%E4%B9%8B%E9%81%93%E9%A2%84%E8%B5%9B%E7%AC%AC%E4%BA%8C%E5%9C%BA-%E7%BE%A4%E6%98%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://spaceack.com">编程之舞</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E7%AE%80%E5%8D%95/">简单</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付宝打赏</div></div><div class="post-qr-code-item"><img class="post-qr-code__img" src="/img/weixin.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/09/20/2020-09-20-%E8%93%9D%E6%A1%A5%E6%A5%BC%E8%B5%9B%E7%AC%AC23%E6%9C%9F-%E6%96%B0%E5%86%A0%E7%96%AB%E6%83%85%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/"><i class="fa fa-chevron-left">  </i><span>解决VScode 与 Linux Rime 中州韵输入法 CTRL+~ 热键冲突</span></a></div><div class="next-post pull-right"><a href="/2020/09/17/2020-09-17-%E8%93%9D%E6%A1%A5%E6%A5%BC%E8%B5%9B%E7%AC%AC23%E6%9C%9F-%E5%B7%A5%E4%BD%9C%E6%96%87%E4%BB%B6%E6%95%B4%E7%90%86%E5%BD%92%E7%B1%BB/"><span>蓝桥楼赛第23期-工作文件整理归类</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '72a672ddfc6e3a4fecca',
+  clientSecret: '3d9d7e44e8177b0b25c584f878bf463b842cf240',
+  repo: 'spaceack.github.io',
+  owner: 'spaceack',
+  admin: 'spaceack',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2014 - 2021 By Spaceack</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">ヾ(o◕∀◕)ﾉヾ美味的丸子最好吃啦</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
