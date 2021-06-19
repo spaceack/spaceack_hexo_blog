@@ -63,6 +63,15 @@ print('CODENAME: ', lsb_info.get('CODENAME')) # CODENAME:  focal
   result = pwd_context.verify('password', password)
   print(result)   # True
   ```
+
+#### 使用 cryptography 对称加密 解密
+```python
+from cryptography.fernet import Fernet as frt
+key=frt.generate_key() # b'oRe0ljfwqIz9mRslvx03Dkyf_I7FplHSRd9thqNsNmM='
+cipher.encrypt(b'Spaceack') # b'gAAAAABgzFc-dEmXUAnD3hhuz8AB0XK3wWBBvmOgdDl9pCD3tL2nsnb3bdOZdK-rQkQEPqaRCiDDeKDyNVD0oC3bVCwJ3WLbqA=='
+cipher.decrypt(b'gAAAAABgzFc-dEmXUAnD3hhuz8AB0XK3wWBBvmOgdDl9pCD3tL2nsnb3bdOZdK-rQkQEPqaRCiDDeKDyNVD0oC3bVCwJ3WLbqA==').decode() # 'Spaceack'
+```
+
 #### selenium 登陆测试
   ```python
   import time
