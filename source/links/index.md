@@ -12,6 +12,7 @@ date: 2019-11-28 00:19:01
 |[骏马金龙](https://www.cnblogs.com/f-ck-need-u/)|技术大牛|网名骏马金龙，钟情于IT世界里的各种原理和实现机制，强迫症重症患者。爱研究、爱翻译、爱分享。特借此一亩三分田记录自己成长点滴！！！
 |
 |[lu4nx@wiki](http://www.shellcodes.org/)|Security,Unix,Python,Lisp,|Emacs||
+|[manateelazycat](https://manateelazycat.github.io/)|linux开源软件|Lisp,Emacs||
 |[TRHX’S BLOG](https://www.itrhx.com/)|Python、爬虫、前端|求知若饥，虚心若愚！|
 |[迷思语](https://www.misiyu.cn/)|技术大牛|一个人，一介学生，一个儿子~ 愿你我都被世界温暖以待|
 |[アストルフォの幻想郷](https://asutorufa.github.io/)|编程||
@@ -71,6 +72,7 @@ date: 2019-11-28 00:19:01
 |[语雀](https://www.yuque.com/login)|多人协作，看板|
 |[蓝湖](https://lanhuapp.com/web/#/user/login)|多人协作，原型设计|
 |[pasteme](https://pasteme.cn/)|文本分享平台|
+|[airportal](https://airportal.cn/)|空投-文件分享平台|
 |[carbon](https://carbon.now.sh/)|生成代码美化的图片|
 |[diagrams](https://app.diagrams.net/)|在线画图（流程图，时序图...）|
 |[le5le](http://topology.le5le.com/workspace)|在线画图（流程图，时序图...）|
