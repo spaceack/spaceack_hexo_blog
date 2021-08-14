@@ -47,6 +47,7 @@ date: 2019-11-28 00:19:01
 |url|tags|
 |-|-|
 |[阿里天池](https://tianchi.aliyun.com/)|算法，编程比赛|
+|[腾讯云+竞赛](https://cloud.tencent.com/developer/competition)|算法，编程比赛|
 |[洛谷](https://www.luogu.com.cn/)|NOIP题库，比赛|
 |[力扣](https://leetcode-cn.com/)|leetcode中国|
 |[牛客竞赛](https://ac.nowcoder.com/)|ACM编程|
